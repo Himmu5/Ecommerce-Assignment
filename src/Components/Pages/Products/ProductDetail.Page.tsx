@@ -1,8 +1,6 @@
 import React, {
   Component,
   ReactNode,
-  ButtonHTMLAttributes,
-  ChangeEvent,
 } from "react";
 import { useParams } from "react-router";
 // import { SingleProduct } from "../Api";
@@ -12,17 +10,18 @@ import Loading from "../../UI-Component/Loading";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { getProduct } from "../../../Apis/products";
+import Button from "../../UI-Component/Button";
 
 type Param = {
   id?: string;
 };
 
 type P = {
-  //   addToCart:(id:number , quantity:number)=>void;
-  //   cartTotal:number;
-  //   updateCart:()=>void;
-  //   totalprod11uct:ResponseType[];
-  //   params:Param;
+    // addToCart:(id:number , quantity:number)=>void;
+    // cartTotal:number;
+    // updateCart:()=>void;
+    // totalprod11uct:ResponseType[];
+    // params:Param;
 };
 
 type S = {
@@ -46,7 +45,7 @@ class ProductDetail extends Component<P, S> {
 
   componentDidMount(): void {
     let id = this.props.params.id;
-    getProduct(id).then((res) => {
+    getProduct(id as string).then((res) => {
       this.setState({ response: res });
     });
   }
@@ -57,7 +56,7 @@ class ProductDetail extends Component<P, S> {
     snapshot?: any
   ): void {
     if (prevProps.params.id != this.props.params.id) {
-      getProduct(this.props.params.id).then((res) => {
+      getProduct(this.props.params.id as string).then((res) => {
         this.setState({ response: res });
       });
     }
@@ -115,13 +114,7 @@ class ProductDetail extends Component<P, S> {
                       this.setState({ Quantity: +e.target.value });
                     }}
                   />
-                  {/* <Button
-                    id={(this.state.response.id).toString()}
-                    className="pl-4 pr-4 pt-1 pb-1 rounded-md bg-red-400 text-white hover:bg-red-500"
-                    onClick={this.handleClick}
-                  >
-                    Add To Cart
-                  </Button> */}
+                 <Button children={'ADD TO CART'} />
                 </div>
                 <hr />
                 <p>

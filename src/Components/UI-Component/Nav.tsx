@@ -41,7 +41,7 @@ const Nav: FC<NavType> = () => {
               </div>
             </div>
             <Link
-              to="/component/Cart/Cart"
+              to="/Cart"
               className="hover:bg-white hover:text-red-500"
             >
               <span className="absolute ml-8 pl-1 pr-1 text-white bg-red-400 rounded-xl self-end  hover:bg-white hover:text-red-500">
