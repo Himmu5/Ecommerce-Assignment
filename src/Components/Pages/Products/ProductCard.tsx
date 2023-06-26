@@ -33,7 +33,7 @@ const ProductCard:FC<ContantCardType>=({ data })=> {
         </div>
         <div className="sm:flex sm:justify-between text-red-400 ">
           <p className="font-bold text-sm text-gray-800">${data.price}.00</p>
-          <Link to={"/Component/Cards/Card/" + data.id} className="underline">
+          <Link to={"/ProductDetail/" + data.id} className="underline">
             View Details
           </Link>
         </div>
