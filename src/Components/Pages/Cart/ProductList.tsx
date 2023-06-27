@@ -1,42 +1,34 @@
-import React, { useEffect, FC } from "react";
+import { FC } from "react";
 import SingleProducts from "./SingleProduct";
 import { useState } from "react";
+import { Product } from "../../../Models/product";
+import withCart from "../../HOC/withCart";
 
 type ProductListType = {
-  totalproduct: ResponseType[];
-  updateCart: (C: CartType) => void;
+  cartProducts: Product[];
+  cart : {[id : number] : number}
+  // updateCart: (C: CartType) => void;
 };
 
-const ProductList: FC<ProductListType> = ({ totalproduct, updateCart }) => {
-  const [quantityMap, setQuantityMap] = useState<CartType>({});
+const ProductList: FC<ProductListType> = ({ cartProducts , cart}) => {
+  // const [quantityMap, setQuantityMap] = useState<CartType>({});
+  console.log("CartList" , cartProducts);
 
-  const cartToQuantityMap = () =>
-    totalproduct.reduce((m, cartItem) => {
-      return { ...m, [cartItem.product.id]: cartItem.quantity };
-    }, {});
-
-  console.log();
-
-  useEffect(
-    function () {
-      setQuantityMap(cartToQuantityMap());
-    },
-    [totalproduct]
-  );
+  
 
   function handleRemove(productid: number) {
-    const newQuantityMap = { ...quantityMap };
-    delete newQuantityMap[productid];
-    updateCart(newQuantityMap);
+    // const newQuantityMap = { ...quantityMap };
+    // delete newQuantityMap[productid];
+    // updateCart(newQuantityMap);
   }
 
   function handleChange(productId: number, newValue: number) {
-    const newLocalCart = { ...quantityMap, [productId]: newValue };
-    setQuantityMap(newLocalCart);
+    // const newLocalCart = { ...quantityMap, [productId]: newValue };
+    // setQuantityMap(newLocalCart);
   }
 
   function updateMyCart() {
-    updateCart(quantityMap);
+    // updateCart(quantityMap);
   }
 
   return (
@@ -54,13 +46,13 @@ const ProductList: FC<ProductListType> = ({ totalproduct, updateCart }) => {
         </div>
       </div>
 
-      {totalproduct.map(function (item) {
+      {cartProducts?.map(function (item) {
         return (
           <SingleProducts
             onRemove={handleRemove}
             onQuantityChange={handleChange}
-            product={item.product}
-            quantity={quantityMap[item.product.id]}
+            product={item}
+            quantity={cart[item.id]}
           />
         );
       })}
@@ -85,4 +77,4 @@ const ProductList: FC<ProductListType> = ({ totalproduct, updateCart }) => {
     </div>
   );
 };
-export default ProductList;
+export default withCart(ProductList);

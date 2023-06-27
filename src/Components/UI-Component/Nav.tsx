@@ -2,10 +2,13 @@ import { FC, memo, useState } from "react";
 import { Link } from "react-router-dom";
 import { BiCart } from 'react-icons/bi'
 import Hamburger from "hamburger-react";
+import withCart from "../HOC/withCart";
 
-type NavType = {};
+type NavType = {
+  cartTotal : number
+};
 
-const Nav: FC<NavType> = () => {
+const Nav: FC<NavType> = ({cartTotal}) => {
 
   const [hamtoggle, sethamtoggle] = useState(false);
 
@@ -45,7 +48,7 @@ const Nav: FC<NavType> = () => {
               className="hover:bg-white hover:text-red-500"
             >
               <span className="absolute ml-8 pl-1 pr-1 text-white bg-red-400 rounded-xl self-end  hover:bg-white hover:text-red-500">
-                {0}
+                {cartTotal}
               </span>
               <BiCart className="text-5xl " />
             </Link>
@@ -61,5 +64,5 @@ const Nav: FC<NavType> = () => {
   );
 };
 
-export default memo(Nav);
+export default withCart(memo(Nav));
 

@@ -1,27 +1,20 @@
-import React, {
-  Component,
-  ReactNode,
-} from "react";
+import React, { Component, ReactNode } from "react";
 import { useParams } from "react-router";
-// import { SingleProduct } from "../Api";
 import { Product } from "../../../Models/product";
 import Loading from "../../UI-Component/Loading";
-// import Button from "../Ui-Component/Button/Button";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { getProduct } from "../../../Apis/products";
 import Button from "../../UI-Component/Button";
+import withCart from "../../HOC/withCart";
 
 type Param = {
   id?: string;
 };
 
 type P = {
-    // addToCart:(id:number , quantity:number)=>void;
-    // cartTotal:number;
-    // updateCart:()=>void;
-    // totalprod11uct:ResponseType[];
-    // params:Param;
+  params?: Param;
+  addToCart: (id: number, Quantity: number) => void;
 };
 
 type S = {
@@ -44,28 +37,23 @@ class ProductDetail extends Component<P, S> {
   }
 
   componentDidMount(): void {
-    let id = this.props.params.id;
+    let id = this.props.params!.id;
     getProduct(id as string).then((res) => {
       this.setState({ response: res });
     });
   }
 
-  componentDidUpdate(
-    prevProps: Readonly<P>,
-    prevState: Readonly<S>,
-    snapshot?: any
-  ): void {
-    if (prevProps.params.id != this.props.params.id) {
-      getProduct(this.props.params.id as string).then((res) => {
+  componentDidUpdate(prevProps: Readonly<P>): void {
+    if (prevProps.params!.id != this.props.params!.id) {
+      getProduct(this.props.params!.id as string).then((res) => {
         this.setState({ response: res });
       });
     }
   }
 
-  handleClick(e: any) {
-    let id = +e.target.id;
-    console.log(id, this.state.Quantity);
-    // this.props.addToCart(id, this.state.Quantity);
+  handleClick() {
+    let id = +this.props.params!.id!;
+    this.props.addToCart(id, this.state.Quantity);
     this.setState({ Quantity: 1 });
   }
 
@@ -114,7 +102,7 @@ class ProductDetail extends Component<P, S> {
                       this.setState({ Quantity: +e.target.value });
                     }}
                   />
-                 <Button children={'ADD TO CART'} />
+                  <Button onClick={this.handleClick} children={"ADD TO CART"} />
                 </div>
                 <hr />
                 <p>
@@ -127,9 +115,7 @@ class ProductDetail extends Component<P, S> {
             </div>
 
             <div className="flex justify-between sm:pl-16 sm:pr-16 max-w-6xl mx-auto pl-3 pr-3 pb-5 pt-5">
-              <Link
-                to={"/Component/Cards/Card/" + (+this.state.response.id - 1)}
-              >
+              <Link to={"/ProductDetail/" + (+this.state.response.id - 1)}>
                 {+this.state.response.id > 1 && (
                   <button className="pl-4 pr-4 pt-2 pb-2 text-white bg-red-400 hover:bg-blue-400 rounded-md">
                     Previous
@@ -149,4 +135,4 @@ class ProductDetail extends Component<P, S> {
   }
 }
 
-export default withRouter(ProductDetail);
+export default withCart(withRouter(ProductDetail));

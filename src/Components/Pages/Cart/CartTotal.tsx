@@ -1,16 +1,18 @@
 import React, { FC } from "react";
 import { memo } from "react";
-import { ResponseType } from "../CommenType/Types";
+import withCart from "../../HOC/withCart";
+import { Product } from "../../../Models/product";
 
 type P = {
-  totalproduct : ResponseType[]
+  cartProducts : Product[],
+  cart : {[id : number] : number}
 }
 
-const CartTotal:FC<P> = ({totalproduct  }) => {
+const CartTotal:FC<P> = ({cartProducts , cart  }) => {
 
   
-  const totalPrice = totalproduct.reduce((prev ,current)=>{
-    return prev + current.product.price * current.quantity
+  const totalPrice = cartProducts?.reduce((prev ,current)=>{
+    return prev + current.price * cart[current.id]
   },0)
 
   console.log("🚀 ~ file: CartTotal.tsx:10 ~ cart", totalPrice)
@@ -42,4 +44,4 @@ const CartTotal:FC<P> = ({totalproduct  }) => {
 }
 
 
-export default memo(CartTotal);
+export default withCart(memo(CartTotal));

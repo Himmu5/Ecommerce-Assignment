@@ -1,33 +1,37 @@
-import { memo, FC } from "react";
+import { memo, FC, useEffect, useState } from "react";
 import ProductList from "./ProductList";
 import SearchNotFound from "../../Error-handling/SearchNotFound";
-// import { withCart } from "../Provider/WithProvider";
-import CartTotalP from "./CartTotal";
+import CartTotal from "./CartTotal";
+import withCart from "../../HOC/withCart";
+import { Product } from "../../../Models/product";
+import Loading from "../../UI-Component/Loading";
 
 type CartType = {
-  totalproduct: ResponseType[];
+  cart: { [id: number]: number };
+  cartProducts : Product[],
+  loading : boolean;
 };
 
-const Cart: FC<CartType> = ({ totalproduct }) => {
-  // if (loading) {
-  //   return <Loading />
-  // }
+const Cart: FC<CartType> = ({ cart , cartProducts , loading }) => {
 
-  if (totalproduct?.length == 0) {
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (cartProducts?.length == 0) {
     return <SearchNotFound />;
   }
-  
 
   return (
     <>
       <div className=" max-w-5xl mx-auto font-bold text-gray-500 bg-white p-3 mt-10 mb-10 xl:p-10 shadow-xl ">
-        <ProductList />
+        <ProductList  />
         <div className="flex flex-col items-end ">
-          <CartTotalP />
+          <CartTotal />
         </div>
       </div>
     </>
   );
 };
 
-export default memo(Cart);
+export default withCart(Cart);

@@ -2,9 +2,12 @@ import { ButtonHTMLAttributes, FC } from "react";
 type P = {
   children: string;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
-const Button: FC<P> = ({ children }) => {
+const Button: FC<P> = ({ children, ...rest }) => {
   return (
-    <button className="px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md ">
+    <button
+      {...rest}
+      className="px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md "
+    >
       {children}
     </button>
   );
