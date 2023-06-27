@@ -1,7 +1,7 @@
-import { useState ,ChangeEvent } from "react";
+import { ChangeEvent } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
-import React, {FC, useCallback, useEffect } from "react";
-import {Product} from '../CommenType/Types'
+import {FC } from "react";
+import { Product } from "../../../Models/product";
 
 
 type SigleProduct = {

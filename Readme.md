@@ -16,3 +16,4 @@
 ### Features
 - Showing the product fetched from DummyJSON API
 - We can collect products in cart
+- We can delete cart product on click at the cross button

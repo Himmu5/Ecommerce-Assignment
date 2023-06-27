@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { memo } from "react";
 import withCart from "../../HOC/withCart";
 import { Product } from "../../../Models/product";

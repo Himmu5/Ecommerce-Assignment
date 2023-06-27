@@ -25,8 +25,18 @@ const CartProvider: FC<CartProviderType> = ({ children }) => {
   function addToCart(id: number, Quantity: number) {
     const oldvalue = cart[id] || 0;
     const temp = { ...cart, [id]: oldvalue + Quantity };
-    localStorage.setItem("cart", JSON.stringify(temp));
-    setCart(temp);
+    updateCart(temp);
+  }
+
+  function updateCart(newCart : { [id : number] : number }){
+    setCart(newCart);
+    localStorage.setItem("cart", JSON.stringify(newCart));
+  }
+
+  function deleteCartProduct(id : number){
+    const temp = {...cart};
+    delete temp[id];
+    updateCart(temp);
   }
 
   const cartTotal = Object.keys(cart).reduce((prev, current) => {
@@ -34,7 +44,7 @@ const CartProvider: FC<CartProviderType> = ({ children }) => {
   }, 0);
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, cartTotal , cartProducts , loading }}>
+    <CartContext.Provider value={{ cart, addToCart, cartTotal , cartProducts , loading , deleteCartProduct}}>
       {children}
     </CartContext.Provider>
   );

@@ -1,4 +1,4 @@
-import { memo, FC, useEffect, useState } from "react";
+import { FC } from "react";
 import ProductList from "./ProductList";
 import SearchNotFound from "../../Error-handling/SearchNotFound";
 import CartTotal from "./CartTotal";
@@ -12,7 +12,7 @@ type CartType = {
   loading : boolean;
 };
 
-const Cart: FC<CartType> = ({ cart , cartProducts , loading }) => {
+const Cart: FC<CartType> = ({ cartProducts , loading }) => {
 
   if (loading) {
     return <Loading />;

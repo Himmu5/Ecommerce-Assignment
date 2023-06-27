@@ -7,12 +7,14 @@ export const CartContext = createContext<{
   addToCart : (id : number , q : number)=>void;
   cartTotal : number ,
   cartProducts : Product[],
-  loading : boolean
+  loading : boolean,
+  deleteCartProduct ?: (id:number)=>void
 }>({
   cart: {},
   setCart : {} as ()=>void,
   addToCart(id, q) {},
   cartTotal : 0,
   cartProducts : [],
-  loading : true
+  loading : true,
+  deleteCartProduct : undefined
 });
