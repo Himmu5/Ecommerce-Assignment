@@ -33,14 +33,6 @@ const Nav: FC<NavType> = ({cartTotal}) => {
                 <Link to="/">
                   <p className="hover:text-red-400 hover:scale-105">HOME</p>
                 </Link>
-                <Link
-                  to={"/AllProducts"}
-                  className="hover:text-red-400 hover:scale-105"
-                >
-                  ALL PRODUCTS
-                </Link>
-                
-                {/* <p>Log Out</p> */}
               </div>
             </div>
             <Link

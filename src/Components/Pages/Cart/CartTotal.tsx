@@ -15,7 +15,6 @@ const CartTotal:FC<P> = ({cartProducts , cart  }) => {
     return prev + current.price * cart[current.id]
   },0)
 
-  console.log("🚀 ~ file: CartTotal.tsx:10 ~ cart", totalPrice)
 
   return (
     <div className="space-y-2 border-2 mt-5 pb-5 w-80">
@@ -23,7 +22,7 @@ const CartTotal:FC<P> = ({cartProducts , cart  }) => {
 
         </div>
       <div className="p-3 text-2xl border-b-2">
-        <p>Cart totals</p>
+        <p>Cart total</p>
       </div>
       <div className="p-3 space-y-4">
         <div className="flex justify-between border-b-2">
