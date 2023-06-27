@@ -3,15 +3,9 @@ import { FC, useEffect } from "react";
 import { useState } from "react";
 import Loading from '../../UI-Component/Loading'
 import SearchNotFound from '../../Error-handling/SearchNotFound'
-import { Link } from "react-router-dom";
-import { MdNavigateNext } from "react-icons/md";
 import { getProducts } from "../../../Apis/products";
 import { Product } from "../../../Models/product";
 import AllCards from "./AllCards";
-
-type paramType = {
-  [k: string]: string;
-};
 
 
 
@@ -23,19 +17,6 @@ const MainContant: FC = () => {
 
   useEffect(
     function () {
-      let sortBy;
-      let sortType;
-
-      if (Query == "name") {
-        sortBy = "title";
-      }
-      if (Query == "LtoH") {
-        sortBy = "price";
-      }
-      if (Query == "HtoL") {
-        sortBy = "price";
-        sortType = "desc";
-      }
 
       let mydata = getProducts();
       mydata
