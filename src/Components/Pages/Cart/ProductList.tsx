@@ -6,19 +6,26 @@ import withCart from "../../HOC/withCart";
 
 type ProductListType = {
   cartProducts: Product[];
-  cart : {[id : number] : number}
-  deleteCartProduct : (id:number)=>void
+  cart: { [id: number]: number };
+  deleteCartProduct: (id: number) => void;
+  updateCart : (cart:{[id:number] : number})=>void
 };
 
-const ProductList: FC<ProductListType> = ({ cartProducts , cart , deleteCartProduct}) => {
+const ProductList: FC<ProductListType> = ({
+  cartProducts,
+  cart,
+  deleteCartProduct,
+  updateCart
+}) => {
+  const [quantity, setQuantity] = useState(cart);
 
   function handleChange(productId: number, newValue: number) {
-    // const newLocalCart = { ...quantityMap, [productId]: newValue };
-    // setQuantityMap(newLocalCart);
+    const temp = { ...quantity, [productId]: newValue };
+    setQuantity(temp);
   }
 
   function updateMyCart() {
-    // updateCart(quantityMap);
+    updateCart(quantity);
   }
 
   return (
@@ -42,7 +49,7 @@ const ProductList: FC<ProductListType> = ({ cartProducts , cart , deleteCartProd
             onRemove={deleteCartProduct}
             onQuantityChange={handleChange}
             product={item}
-            quantity={cart[item.id]}
+            quantity={quantity[item.id]}
           />
         );
       })}

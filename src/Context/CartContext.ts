@@ -8,7 +8,8 @@ export const CartContext = createContext<{
   cartTotal : number ,
   cartProducts : Product[],
   loading : boolean,
-  deleteCartProduct ?: (id:number)=>void
+  deleteCartProduct ?: (id:number)=>void,
+  updateCart?:(c:{[id:number] : number})=>void
 }>({
   cart: {},
   setCart : {} as ()=>void,
@@ -16,5 +17,6 @@ export const CartContext = createContext<{
   cartTotal : 0,
   cartProducts : [],
   loading : true,
-  deleteCartProduct : undefined
+  deleteCartProduct : undefined,
+  updateCart:undefined
 });

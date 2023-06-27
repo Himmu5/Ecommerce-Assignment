@@ -44,7 +44,7 @@ const CartProvider: FC<CartProviderType> = ({ children }) => {
   }, 0);
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, cartTotal , cartProducts , loading , deleteCartProduct}}>
+    <CartContext.Provider value={{ cart, addToCart, cartTotal , cartProducts , loading , deleteCartProduct , updateCart}}>
       {children}
     </CartContext.Provider>
   );
