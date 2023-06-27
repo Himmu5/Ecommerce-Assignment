@@ -19,6 +19,7 @@ const MainContant: FC = () => {
   const [ApiData, setApiData] = useState<Product[]>();
   const [loading, setLoading] = useState<boolean>(true);
   const [Query, setQuery] = useState("");
+  const [select , setSelect ] = useState('Default');
 
   useEffect(
     function () {
@@ -46,8 +47,30 @@ const MainContant: FC = () => {
           setLoading(false);
         });
     },
-    [Query]
+    [Query , select]
   );
+  let data = ApiData;
+  
+  if(Query.length > 0){
+    data = ApiData?.filter((product)=>{
+      return product.title.toLowerCase().indexOf(Query.toLowerCase()) !== -1
+    })
+  }
+  if(select === 'LtoH'){
+    data = data?.sort((x , y)=>{
+      return x.price - y.price 
+    })
+  }
+  if(select === 'HtoL'){
+    data = data?.sort((x , y)=>{
+      return y.price - x.price
+    })
+  }
+  if(select === 'name'){
+    data = data?.sort((x , y)=>{
+      return y.title > x.title ? -1 : 1
+    })
+  }
 
   if (loading) {
     return <Loading />;
@@ -64,6 +87,8 @@ const MainContant: FC = () => {
               <div className=" items-center hidden md:block">
                 <input
                   type="text"
+                  value={Query}
+                  onChange={(e)=>setQuery(e.target.value)}
                   placeholder="Search product"
                   className="border relative pt-2 pb-2 pl-7 pr-3 "
                 />
@@ -71,7 +96,8 @@ const MainContant: FC = () => {
               </div>
               <select
                 id=""
-                value={Query}
+                value={select}
+                onChange={(e)=>setSelect(e.target.value)}                
                 className="pl-3 pr-3 md:pl-6 md:pr-6 pt-2 pb-2 border border-gray-300"
               >
                 <option value="Default">Default Sort</option>
@@ -84,7 +110,7 @@ const MainContant: FC = () => {
         </div>
 
         {ApiData?.length === 0 && <SearchNotFound />}
-        <AllCards data={ApiData} />
+        <AllCards data={data} />
       </div>
     </div>
   );
