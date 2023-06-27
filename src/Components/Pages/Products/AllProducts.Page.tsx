@@ -27,7 +27,7 @@ const MainContant: FC = () => {
         .catch(function () {
           setLoading(false);
         });
-    },
+    }, 
     [Query , select]
   );
   let data = ApiData;
